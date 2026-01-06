@@ -1,9 +1,37 @@
-# Amazon-SQL-Project
+# Amazon-Sales-Analysis-SQL-Project
 This is SQL based project in which user has created database and added multiple tables to perform analysis on amazon dataset using various SQL functions &amp; methods
 
 <img width="1200" height="363" alt="image" src="https://github.com/user-attachments/assets/2f4c7554-ced9-4697-8937-e6d8c9910847" />
 
-## **Schema Structure**
+## *Project Overview*
+I have worked on analyzing a dataset of over 20,000 sales records from an Amazon-like e-commerce platform using PostgreSQL. This project involved extensive querying to understand customer behavior, product performance, and sales trends. Through it, I tackled various SQL challenges, including revenue analysis, customer segmentation, and inventory management.
+
+The project also emphasized data cleaning, managing null values, and applying structured queries to solve real-world business problems.
+
+An ERD diagram was created to provide a clear visual representation of the database schema and table relationships.
+<img width="869" height="555" alt="ERD" src="https://github.com/user-attachments/assets/4f8f178f-59b2-42e4-b7c9-8194c2aceaac" />
+
+---
+## *Objective*
+
+The primary objective of this project is to showcase SQL proficiency through complex queries that address real-world e-commerce business challenges. The analysis covers various aspects of e-commerce operations
+--
+## *SQL Concepts Used*
+Joins , case statements , window functions - Rank , Dense Rank , Lag , Group By , Having , Subqueries.
+## *Key Insights*
+High-Value Customers: The top 10 customers contribute significantly to the overall revenue, indicating the importance of customer retention strategies.
+
+Payment Efficiency: The payment success rate provides insights into the reliability of the payment processing system.
+
+Product Performance: Identifying top-selling products helps in inventory management and marketing focus.
+
+Return Rates: Products with high return rates may require quality assessment or better customer education.
+
+Seller Contributions: Understanding which sellers generate the most revenue can inform partnership and commission strategies.
+
+## *Database Setup & Design*
+
+## *Schema Structure*
 ```sql
 CREATE TABLE category
 (
