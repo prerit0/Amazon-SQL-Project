@@ -319,3 +319,22 @@ group by
 order by 
     total_returned desc
 limit 10;
+
+-- Extra
+-- Identified the highest-demand product in each state based on total quantity sold, enabling better understanding of customer preferences.
+WITH product_demand AS (
+SELECT c.state, p.product_name,
+SUM(oi.quantity) AS total_quantity,
+DENSE_RANK() OVER ( PARTITION BY c.state ORDER BY SUM(oi.quantity)  DESC ) AS rnk
+FROM orders o
+JOIN order_items oi ON o.order_id = oi.order_id
+JOIN customers c ON o.customer_id = c.customer_id
+JOIN products p ON oi.product_id = p.product_id
+WHERE o.order_status = 'Completed'
+GROUP BY c.state, p.product_name
+)
+SELECT state, product_name AS highest_demand_product,
+total_quantity
+FROM product_demand
+WHERE rnk = 1
+ORDER BY state;
