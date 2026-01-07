@@ -127,3 +127,12 @@ CREATE TABLE inventory
   CONSTRAINT inventory_fk_products FOREIGN KEY (product_id) REFERENCES products(product_id)
   );
 ```
+
+## Other Insights
+Category with highest Revenue -> Electronics
+
+#1 Selling Product -> Apple iMac Pro
+
+Most returned Product -> Apple iMac 24-inch
+
+Category with Lowest Revenue  -> Home & Clothing
