@@ -198,24 +198,14 @@ from revenue;
 -- COMPUTE THE AVERAGE ORDER VALUE FOR EACH CUSTOMER AND INCLUDE ONLY CUSTOMERS WITH MORE THAN 5 ORDER
 SELECT
     c.customer_id,
-    ROUND(SUM(oi.total_sale) / COUNT(DISTINCT o.order_id), 2) AS AOV,
+    ROUND(SUM(oi.total_sales) / COUNT(DISTINCT o.order_id), 2) AS AOV,
     COUNT(DISTINCT o.order_id) AS total_orders
-FROM customers c
+FROM customer c
 JOIN orders o ON o.customer_id = c.customer_id
-JOIN order_items oi ON oi.order_id = o.order_id
+JOIN order_item oi ON oi.order_id = o.order_id
 WHERE o.order_status = 'Completed'
 GROUP BY c.customer_id
-HAVING COUNT(DISTINCT o.order_id) > 5;
-
-SELECT
-    c.customer_id,
-    ROUND(SUM(oi.total_sale) / COUNT(DISTINCT o.order_id), 2) AS avg_order_value
-FROM customers c
-JOIN orders o ON o.customer_id = c.customer_id
-JOIN order_items oi ON oi.order_id = o.order_id
-WHERE o.order_status = 'Completed'
-GROUP BY c.customer_id
-HAVING COUNT(DISTINCT o.order_id) > 5;
+HAVING COUNT(DISTINCT o.order_id) > 5;;
 
 -- question 4
 --	 query monthly total sales over the past year and display the current month's sales along with the previous month's sales.
@@ -223,8 +213,8 @@ with monthly_sale as(
 select 
 month (o.order_date) as month,
 year (o.order_date) as year,
-round(sum(oi.total_sale),2) as total_sale
-FROM order_items oi
+round(sum(oi.total_sales),2) as total_sale
+FROM order_item oi
 join orders o on o.order_id=oi.order_id
 WHERE o.order_status = 'Completed'
 and DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
@@ -237,9 +227,8 @@ from monthly_sale;
 
 -- QUESTION 5
 -- FIND CUSTOMER WHO HAVE REGISTERED BUT NEVER PLACED AN ORDER, LISTING CUSTOMER DETAILS AND THE TIME SINCE THEIR REGISTRATION. 
-
 select *
-from customers 
+from customer 
 where customer_id not in (select distinct customer_id from orders);
 
 -- QUESTION 6
@@ -250,9 +239,9 @@ SELECT c.state as state,
 round(sum(oi.total_sale),2) total_sale,
 dense_rank() over (partition by ca.category_name order by sum(oi.total_sale) ) as least_selling_category 
 FROM orders o
-JOIN order_items oi ON o.order_id = oi.order_id
-JOIN customers c ON o.customer_id = c.customer_id
-JOIN products p ON oi.product_id = p.product_id
+JOIN order_item oi ON o.order_id = oi.order_id
+JOIN customer c ON o.customer_id = c.customer_id
+JOIN product p ON oi.product_id = p.product_id
 JOIN category cA ON p.category_id = ca.category_id
 WHERE o.order_status = 'Completed'
 group by 1,2
